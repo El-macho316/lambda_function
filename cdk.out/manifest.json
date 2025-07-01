@@ -1,0 +1,168 @@
+{
+  "version": "44.0.0",
+  "artifacts": {
+    "LambdaAwsCdkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "LambdaAwsCdkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "LambdaAwsCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "LambdaAwsCdkStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f79e8264a9a53d1f9c93a7ca7a9cf37dfabba1950efa5aecc69d486765619622.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "LambdaAwsCdkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "LambdaAwsCdkStack.assets"
+      ],
+      "metadata": {
+        "/LambdaAwsCdkStack/DockerFunc": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*",
+              "architecture": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "code": "*",
+              "memorySize": "*",
+              "timeout": "*",
+              "architecture": "*"
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DockerFuncServiceRole8031C1C5"
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DockerFuncF47DA747"
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/LogGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*"
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DockerFuncLogGroupE514F001"
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/FunctionUrl": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "function": "*",
+              "authType": "NONE",
+              "cors": {
+                "allowedMethods": [
+                  "*"
+                ],
+                "allowedHeaders": "*",
+                "allowedOrigins": "*"
+              }
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/FunctionUrl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DockerFuncFunctionUrlFE69B12B"
+          }
+        ],
+        "/LambdaAwsCdkStack/DockerFunc/invoke-function-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DockerFuncinvokefunctionurlB084CBAE"
+          }
+        ],
+        "/LambdaAwsCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/LambdaAwsCdkStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/LambdaAwsCdkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/LambdaAwsCdkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "LambdaAwsCdkStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1019.2"
+}
