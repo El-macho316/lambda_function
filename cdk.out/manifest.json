@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f79e8264a9a53d1f9c93a7ca7a9cf37dfabba1950efa5aecc69d486765619622.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3c26449068d63e9dd8dadfcdff1dc74d2a09d66407e6094d4733c7fcc0506b1e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -34,14 +34,16 @@
         "LambdaAwsCdkStack.assets"
       ],
       "metadata": {
-        "/LambdaAwsCdkStack/DockerFunc": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
               "code": "*",
               "memorySize": "*",
               "timeout": "*",
-              "architecture": "*"
+              "architecture": "*",
+              "description": "*",
+              "functionName": "*"
             }
           },
           {
@@ -50,11 +52,13 @@
               "code": "*",
               "memorySize": "*",
               "timeout": "*",
-              "architecture": "*"
+              "architecture": "*",
+              "description": "*",
+              "functionName": "*"
             }
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/ServiceRole": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/ServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -70,25 +74,25 @@
             }
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/ServiceRole/ImportServiceRole": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/ServiceRole/ImportServiceRole": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/ServiceRole/Resource": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DockerFuncServiceRole8031C1C5"
+            "data": "FinancialAnalysisFuncServiceRole9F672B8A"
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/Resource": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DockerFuncF47DA747"
+            "data": "FinancialAnalysisFuncB749223B"
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/LogGroup": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/LogGroup": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -96,13 +100,13 @@
             }
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/LogGroup/Resource": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/LogGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DockerFuncLogGroupE514F001"
+            "data": "FinancialAnalysisFuncLogGroup79D19158"
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/FunctionUrl": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/FunctionUrl": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -118,16 +122,118 @@
             }
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/FunctionUrl/Resource": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/FunctionUrl/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DockerFuncFunctionUrlFE69B12B"
+            "data": "FinancialAnalysisFuncFunctionUrlB849DE1A"
           }
         ],
-        "/LambdaAwsCdkStack/DockerFunc/invoke-function-url": [
+        "/LambdaAwsCdkStack/FinancialAnalysisFunc/invoke-function-url": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DockerFuncinvokefunctionurlB084CBAE"
+            "data": "FinancialAnalysisFuncinvokefunctionurl2D558FE3"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "runtime": "*",
+              "handler": "*",
+              "code": "*",
+              "timeout": "*",
+              "memorySize": "*",
+              "description": "*",
+              "functionName": "*"
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/ServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/ServiceRole/ImportServiceRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFuncServiceRoleB3B27316"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFuncB0D841A4"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/LogGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*"
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFuncLogGroup39255A5A"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/FunctionUrl": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "function": "*",
+              "authType": "NONE",
+              "cors": {
+                "allowedMethods": [
+                  "*"
+                ],
+                "allowedHeaders": "*",
+                "allowedOrigins": "*"
+              }
+            }
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/FunctionUrl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFuncFunctionUrlC31C1E0F"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunc/invoke-function-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFuncinvokefunctionurl3C555AE7"
+          }
+        ],
+        "/LambdaAwsCdkStack/FinancialAnalysisFunctionUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FinancialAnalysisFunctionUrl"
+          }
+        ],
+        "/LambdaAwsCdkStack/SimplePythonFunctionUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SimplePythonFunctionUrl"
           }
         ],
         "/LambdaAwsCdkStack/CDKMetadata/Default": [

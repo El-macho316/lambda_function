@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "DockerFuncServiceRole8031C1C5": {
+  "FinancialAnalysisFuncServiceRole9F672B8A": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -31,10 +31,10 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "LambdaAwsCdkStack/DockerFunc/ServiceRole/Resource"
+    "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/ServiceRole/Resource"
    }
   },
-  "DockerFuncF47DA747": {
+  "FinancialAnalysisFuncB749223B": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Architectures": [
@@ -42,30 +42,32 @@
     ],
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:2b187a07131cf5558002f904429c3f1432ad216cdccc98246c61517fd9f65c02"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:8f7bcd3e9981d2839bfad147943c28157dab74bff1b695f168499cc2d20897ae"
      }
     },
+    "Description": "Financial data analysis and scoring service",
+    "FunctionName": "financial-analysis-service",
     "MemorySize": 1024,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
-      "DockerFuncServiceRole8031C1C5",
+      "FinancialAnalysisFuncServiceRole9F672B8A",
       "Arn"
      ]
     },
     "Timeout": 10
    },
    "DependsOn": [
-    "DockerFuncServiceRole8031C1C5"
+    "FinancialAnalysisFuncServiceRole9F672B8A"
    ],
    "Metadata": {
-    "aws:cdk:path": "LambdaAwsCdkStack/DockerFunc/Resource",
-    "aws:asset:path": "asset.2b187a07131cf5558002f904429c3f1432ad216cdccc98246c61517fd9f65c02",
+    "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/Resource",
+    "aws:asset:path": "asset.8f7bcd3e9981d2839bfad147943c28157dab74bff1b695f168499cc2d20897ae",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }
   },
-  "DockerFuncLogGroupE514F001": {
+  "FinancialAnalysisFuncLogGroup79D19158": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "LogGroupName": {
@@ -74,7 +76,7 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "DockerFuncF47DA747"
+        "Ref": "FinancialAnalysisFuncB749223B"
        }
       ]
      ]
@@ -84,10 +86,10 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "LambdaAwsCdkStack/DockerFunc/LogGroup/Resource"
+    "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/LogGroup/Resource"
    }
   },
-  "DockerFuncFunctionUrlFE69B12B": {
+  "FinancialAnalysisFuncFunctionUrlB849DE1A": {
    "Type": "AWS::Lambda::Url",
    "Properties": {
     "AuthType": "NONE",
@@ -104,22 +106,22 @@
     },
     "TargetFunctionArn": {
      "Fn::GetAtt": [
-      "DockerFuncF47DA747",
+      "FinancialAnalysisFuncB749223B",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "LambdaAwsCdkStack/DockerFunc/FunctionUrl/Resource"
+    "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/FunctionUrl/Resource"
    }
   },
-  "DockerFuncinvokefunctionurlB084CBAE": {
+  "FinancialAnalysisFuncinvokefunctionurl2D558FE3": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunctionUrl",
     "FunctionName": {
      "Fn::GetAtt": [
-      "DockerFuncF47DA747",
+      "FinancialAnalysisFuncB749223B",
       "Arn"
      ]
     },
@@ -127,18 +129,163 @@
     "Principal": "*"
    },
    "Metadata": {
-    "aws:cdk:path": "LambdaAwsCdkStack/DockerFunc/invoke-function-url"
+    "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/invoke-function-url"
+   }
+  },
+  "SimplePythonFuncServiceRoleB3B27316": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaAwsCdkStack/SimplePythonFunc/ServiceRole/Resource"
+   }
+  },
+  "SimplePythonFuncB0D841A4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "ZipFile": "\nimport json\nimport boto3\nfrom datetime import datetime\n\ndef lambda_handler(event, context):\n    \"\"\"\n    Simple example function - you can replace this with your actual logic\n    \"\"\"\n    return {\n        'statusCode': 200,\n        'headers': {\n            'Content-Type': 'application/json',\n            'Access-Control-Allow-Origin': '*',\n            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',\n            'Access-Control-Allow-Headers': 'Content-Type',\n        },\n        'body': json.dumps({\n            'message': 'Hello from second Lambda function!',\n            'timestamp': datetime.now().isoformat(),\n            'event': event\n        })\n    }\n      "
+    },
+    "Description": "Simple Python function example",
+    "FunctionName": "simple-python-service",
+    "Handler": "index.lambda_handler",
+    "MemorySize": 128,
+    "Role": {
+     "Fn::GetAtt": [
+      "SimplePythonFuncServiceRoleB3B27316",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.11",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "SimplePythonFuncServiceRoleB3B27316"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LambdaAwsCdkStack/SimplePythonFunc/Resource"
+   }
+  },
+  "SimplePythonFuncLogGroup39255A5A": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "SimplePythonFuncB0D841A4"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "LambdaAwsCdkStack/SimplePythonFunc/LogGroup/Resource"
+   }
+  },
+  "SimplePythonFuncFunctionUrlC31C1E0F": {
+   "Type": "AWS::Lambda::Url",
+   "Properties": {
+    "AuthType": "NONE",
+    "Cors": {
+     "AllowHeaders": [
+      "*"
+     ],
+     "AllowMethods": [
+      "*"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "TargetFunctionArn": {
+     "Fn::GetAtt": [
+      "SimplePythonFuncB0D841A4",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaAwsCdkStack/SimplePythonFunc/FunctionUrl/Resource"
+   }
+  },
+  "SimplePythonFuncinvokefunctionurl3C555AE7": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunctionUrl",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SimplePythonFuncB0D841A4",
+      "Arn"
+     ]
+    },
+    "FunctionUrlAuthType": "NONE",
+    "Principal": "*"
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaAwsCdkStack/SimplePythonFunc/invoke-function-url"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/6VRTU8bMRD9LfiIHDfkgpRbaAutBAEl5bSK0GAPmyG2Z+WPRltr/3tlNgv03NPMPL838zyzUIv5hZqfwTHOtDnMLD2rsk2gDxKO8alYcM8GVPnG+oDhp4MWr7PXidg3RWg2KJbiXEjh0HHot/RnAhI55JxOFQS9p4Q65TASBvl/8p38+uInK3JKHoNting5VZM4p/2vvqvC9f36u5BCc4hiWQRYy0c0d5j2bKJYNuJc7OQE/0AwWIljlxG8D9SSH8FhdPEYbA0PGBzFSOwHSeBU2bDFpgiIMTs0V32d2AXymjqwK605+/f/vXGqYPXhfJDCgYcWzQNb0oTVYfkH61fhxN2NXmqLQaIOTxAjpqg+HW5VkfqmNthxpMShv4KIzU5abqMqt9zeBM5dU4Q9pWtwnxc+MYZBbjByDhrHnb313iZoybeD9GxQvcYvvxdzdXGp5mevkWgWsq9XVZsx/gWGCthlewIAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/71TTW8bIRD9LeEYYer4Usk3p99Sa0d2c1pZ0QQma2I+VgzU2qL97xXrXcdWLj35BDzevKc3AzMxm96J6Q0caCLVfmL0s8ibCHLP4UBP2YB9ViDyZy/3GH5YqPFrcjJq76rMpFfI5uyWcWbR+tBu9N8RiNqiT3E4QZA7HVHGFEaCQpJBN0VqQF4G5SXYI6njV/DY8k8vbgzFx81jMFU+sUeHFHe/26YULlfLL4wz6QOxeWZgjD+g+oVx5xWxecVu2ZaP8HcEhYV4VDmCq6Br7Y5gV5Jez6yP/BhMWR4wWE10nr3KLCRXmjuI7MApg2E4nU3kcgDv5vNf7e+4Bivy2husMgOiZFHdtyVoE7STugGzkNIndxp0zykFi7eGdZxZcFCjevBGS42lMfkCaxfBnUyvZ9V3u0h0HGV4AiKMJM5+1KIg5U6ssfGkow/tPRBWW258TSL/9PW34FNTZWaG7cUfeQ/2nmNZ1/E1kk9BYtWnKs+lN91EqLWrC3mVYpNix51XKF7pw5/ZVNx9FNObV9J6MrwHsT6u/wDe2CTiNwQAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "LambdaAwsCdkStack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "FinancialAnalysisFunctionUrl": {
+   "Description": "URL for the Financial Analysis Function",
+   "Value": {
+    "Fn::GetAtt": [
+     "FinancialAnalysisFuncFunctionUrlB849DE1A",
+     "FunctionUrl"
+    ]
+   }
+  },
+  "SimplePythonFunctionUrl": {
+   "Description": "URL for the Simple Python Function",
+   "Value": {
+    "Fn::GetAtt": [
+     "SimplePythonFuncFunctionUrlC31C1E0F",
+     "FunctionUrl"
+    ]
+   }
   }
  },
  "Conditions": {
