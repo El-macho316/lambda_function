@@ -1,0 +1,149 @@
+{
+  "tools": [
+    {
+      "toolSpec": {
+        "name": "find_similar_stocks",
+        "description": "Find stocks that are similar to a target stock based on financial metrics and performance indicators. Uses vector similarity search in Pinecone to identify stocks with comparable characteristics.",
+        "inputSchema": {
+          "json": {
+            "type": "object",
+            "properties": {
+              "target_security": {
+                "type": "string",
+                "description": "The stock symbol to find similar stocks for (e.g., 'PTT', 'CPALL', 'BBL')"
+              },
+              "target_date": {
+                "type": "string",
+                "description": "Optional specific date in YYYY-MM-DD format. If not provided, uses the latest available data for the stock."
+              },
+              "top_k": {
+                "type": "integer",
+                "description": "Number of similar stocks to return (default: 5, max: 20)",
+                "minimum": 1,
+                "maximum": 20
+              }
+            },
+            "required": ["target_security"]
+          }
+        }
+      }
+    },
+    {
+      "toolSpec": {
+        "name": "search_by_criteria",
+        "description": "Search for stocks based on specific financial criteria and filters. Allows filtering by sector, market cap, PE ratio, score ranges, and other financial metrics.",
+        "inputSchema": {
+          "json": {
+            "type": "object",
+            "properties": {
+              "criteria": {
+                "type": "object",
+                "description": "Search criteria as key-value pairs. Supported filters include: 'sector', 'min_total_score', 'max_total_score', 'min_pe_ratio', 'max_pe_ratio', 'min_market_cap', 'max_market_cap', 'min_rank', 'max_rank'",
+                "properties": {
+                  "sector": {
+                    "type": "string",
+                    "description": "Filter by sector (e.g., 'Technology', 'Finance', 'Energy')"
+                  },
+                  "min_total_score": {
+                    "type": "number",
+                    "description": "Minimum total score threshold"
+                  },
+                  "max_total_score": {
+                    "type": "number",
+                    "description": "Maximum total score threshold"
+                  },
+                  "min_pe_ratio": {
+                    "type": "number",
+                    "description": "Minimum P/E ratio"
+                  },
+                  "max_pe_ratio": {
+                    "type": "number",
+                    "description": "Maximum P/E ratio"
+                  },
+                  "min_market_cap": {
+                    "type": "number",
+                    "description": "Minimum market capitalization"
+                  },
+                  "max_market_cap": {
+                    "type": "number",
+                    "description": "Maximum market capitalization"
+                  }
+                }
+              },
+              "top_k": {
+                "type": "integer",
+                "description": "Number of results to return (default: 10, max: 50)",
+                "minimum": 1,
+                "maximum": 50
+              }
+            },
+            "required": ["criteria"]
+          }
+        }
+      }
+    },
+    {
+      "toolSpec": {
+        "name": "get_stock_document",
+        "description": "Get detailed analysis document for a specific stock including valuation analysis, investment recommendation, financial metrics, and formatted summary.",
+        "inputSchema": {
+          "json": {
+            "type": "object",
+            "properties": {
+              "target_security": {
+                "type": "string",
+                "description": "The stock symbol to get detailed analysis for (e.g., 'PTT', 'CPALL', 'BBL')"
+              },
+              "target_date": {
+                "type": "string",
+                "description": "Optional specific date in YYYY-MM-DD format. If not provided, uses the latest available data."
+              }
+            },
+            "required": ["target_security"]
+          }
+        }
+      }
+    },
+    {
+      "toolSpec": {
+        "name": "get_index_stats",
+        "description": "Get statistics about the Pinecone vector database including total number of stocks, index dimension, and storage information.",
+        "inputSchema": {
+          "json": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
+      }
+    },
+    {
+      "toolSpec": {
+        "name": "analyze_portfolio",
+        "description": "Analyze a portfolio of stocks and provide recommendations. This combines multiple stock analyses to give portfolio-level insights.",
+        "inputSchema": {
+          "json": {
+            "type": "object",
+            "properties": {
+              "stock_symbols": {
+                "type": "array",
+                "description": "Array of stock symbols to analyze as a portfolio",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "maxItems": 20
+              },
+              "analysis_type": {
+                "type": "string",
+                "description": "Type of portfolio analysis: 'diversification', 'risk_assessment', 'performance_summary'",
+                "enum": ["diversification", "risk_assessment", "performance_summary"]
+              }
+            },
+            "required": ["stock_symbols"]
+          }
+        }
+      }
+    }
+  ]
+} 

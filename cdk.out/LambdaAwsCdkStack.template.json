@@ -42,7 +42,7 @@
     ],
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:8f7bcd3e9981d2839bfad147943c28157dab74bff1b695f168499cc2d20897ae"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:359b0e4ea177966597ef0c1758b0c424a253ebc24805f2bd6374361ebeb29c0e"
      }
     },
     "Description": "Financial data analysis and scoring service",
@@ -62,7 +62,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "LambdaAwsCdkStack/FinancialAnalysisFunc/Resource",
-    "aws:asset:path": "asset.8f7bcd3e9981d2839bfad147943c28157dab74bff1b695f168499cc2d20897ae",
+    "aws:asset:path": "asset.359b0e4ea177966597ef0c1758b0c424a253ebc24805f2bd6374361ebeb29c0e",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }

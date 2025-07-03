@@ -1,0 +1,4 @@
+   yfinance>=0.2.18
+   boto3
+   pandas==2.1.4
+   numpy==1.26.4
