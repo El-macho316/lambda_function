@@ -46,11 +46,11 @@ Show me the fundamental analysis for AAPL
 
 ### ✅ Friendly or Conversational
 ```
-Hi! Could you break down the fundamentals of TSLA for me?
+Hi! Could you break down the fundamentals of PTT for me?
 ```
 
 ```
-Hey! Please give me the fundamental analysis for MSFT. Thanks!
+Hey! Please give me the fundamental analysis for PTT. Thanks!
 ```
 
 ---
@@ -78,10 +78,12 @@ Here’s a ready-to-use template:
 Hi! Please give me the fundamental analysis for [TICKER].
 ```
 
-Replace `[TICKER]` with the stock symbol of your choice (e.g., `AAPL`, `TSLA`, `KBANK`).
+Replace `[TICKER]` with the stock symbol of your choice (e.g.,`PTT`, `KBANK`).
 
 ---
 
 ## 📋 Notes
 - The analysis is **informational only**, not financial advice.
 - Always double-check the data and consult a financial advisor if needed.
+
+*** AVALIABLE FOR SET ONLY ***
